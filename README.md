@@ -125,3 +125,33 @@ forge test
 ```
 
 ---
+
+## Challenges
+
+### Hello Ethernaut
+
+This challenge teaches you to:
+
+* Use MetaMask
+* Obtain testnet Sepolia ETH
+* Use the browser console
+* Interact with smart contracts
+* Understand what an ABI is
+
+---
+
+#### Console Solution
+
+Call the following contract methods in sequence (in your browser console):
+
+```js
+await contract.info(); // 1
+await contract.info1(); // 2
+await contract.info2("hello"); // 3
+await contract.infoNum(); // 4
+await contract.info42(); // 5
+await contract.theMethodName(); // 6
+await contract.method7123949(); // 7
+const password = await contract.password(); // 8
+await contract.authenticate(password); // 8
+```
