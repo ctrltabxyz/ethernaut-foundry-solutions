@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: Foundry project
+    name: Ethernaut Foundry Solutions
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +31,11 @@ jobs:
         run: |
           forge fmt --check
         id: fmt
+
+      - name: Install Dependencies
+        run: |
+          forge install foundry-rs/forge-std
+        id: deps
 
       - name: Run Forge build
         run: |
