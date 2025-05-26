@@ -1,66 +1,127 @@
-## Foundry
+# My Ethernaut Solutions
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+> **WARNING:** *Do NOT use a wallet containing real funds to interact with this project!*
 
-Foundry consists of:
+---
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Getting Started
 
-## Documentation
+### Install Foundry
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```bash
+curl -L https://foundry.paradigm.xyz | bash
 ```
 
-### Test
+### Update Foundry
 
-```shell
-$ forge test
+```bash
+foundryup
 ```
 
-### Format
+---
 
-```shell
-$ forge fmt
+### (Optional) Install Make
+
+Check if `make` is installed:
+
+```bash
+make -v
 ```
 
-### Gas Snapshots
+If not, install it:
 
-```shell
-$ forge snapshot
+```bash
+sudo apt-get -y install make
 ```
 
-### Anvil
+---
 
-```shell
-$ anvil
+### Install Dependencies
+
+Using `make`:
+
+```bash
+make install
 ```
 
-### Deploy
+Or using Foundry directly:
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```bash
+forge install foundry-rs/forge-std
 ```
 
-### Cast
+---
 
-```shell
-$ cast <subcommand>
+### Install a Wallet
+
+Recommended browser wallets:
+
+* [MetaMask](https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn)
+* [Rabby Wallet](https://chromewebstore.google.com/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch)
+
+---
+
+### Get Sepolia ETH (Testnet)
+
+Use any of the following Sepolia faucets to fund your wallet:
+
+* [Sepolia GCP Faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia)
+* [Alchemy Faucet](https://alchemy.com/faucets/ethereum-sepolia)
+* [Infura Faucet](https://docs.metamask.io/developer-tools/faucet)
+* [Chainlink Faucet](https://faucets.chain.link/sepolia)
+
+---
+
+### Create a Cast Wallet
+
+```bash
+cast wallet import sepolia --interactive
 ```
 
-### Help
+Follow the prompts:
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+1. Enter your private key.
+2. Set and remember your password.
+
+---
+
+### Get an RPC URL
+
+You can get an RPC endpoint from:
+
+* [Tenderly](https://tenderly.co/)
+* [Alchemy](https://www.alchemy.com/)
+* [Infura](https://www.infura.io/)
+
+---
+
+### Run Solutions on Sepolia
+
+1. Create copy .env_example to .env
+2. Specify `RPC_URL` in .env file
+3. Visit [Ethernaut](https://ethernaut.openzeppelin.com/)
+4. Choose a level and generate a new instance
+5. Copy the instance address
+6. Update your solution script with the address
+7. Execute your solution with:
+
+```bash
+forge script script/HelloEthernautSolution.s.sol:HelloEthernautSolution \
+  --chain sepolia \
+  --rpc-url $RPC_URL \
+  --account [your_account_name] \
+  --sender [your_wallet_address] \
+  --broadcast
 ```
+
+8. Return to Ethernaut and submit the level
+
+---
+
+### Run Tests Locally with Anvil
+
+```bash
+forge test
+```
+
+---
