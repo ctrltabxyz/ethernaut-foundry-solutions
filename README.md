@@ -155,3 +155,43 @@ await contract.method7123949(); // 7
 const password = await contract.password(); // 8
 await contract.authenticate(password); // 8
 ```
+
+### Fallback
+
+This challenge teaches you to:
+
+* How to send ether when interacting with an ABI
+* How to send ether outside of the ABI
+* Converting to and from wei/ether units
+* Fallback methods
+
+---
+
+#### Solution
+
+We need to take control of the contract and withdraw all the ETH.
+The `owner` is set in three places:
+
+* the constructor;
+* the `contribute` function;
+* the `receive` function.
+
+In order for the `owner` to be set via the `contribute` function, we need to contribute more funds than the current owner has — which is 1000 ETH, and that’s too much.
+
+That leaves us with one option to become the owner — the `receive` function.
+The vulnerability lies specifically in the `receive` function. To become the owner, we need to send at least 1 wei to the contract. The steps are as follows:
+
+* Call the `contribute` function and send 1 wei to ensure our account appears in the `contributions` map.
+* Send 1 wei directly to the smart contract to trigger the `receive` function and become the owner.
+* Call the `withdraw` function and drain all ETH from the contract balance.
+
+
+#### Console Solution
+
+Call the following instructions in sequence (in your browser console):
+
+```js
+await contract.contribute({ value: 1 });
+await contract.sendTransaction({ to: contract.address, value: 1, });
+await contract.withdraw();
+```
